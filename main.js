@@ -4,14 +4,6 @@ function makeElement(tag, attr_n, attr_v, content) {
   output.textContent = content;
   return output;
 }
-{
-  /* <div class="counter">
-<button class="btn btn-inc">+</button>
-<h3 class="number">0</h3>
-<button class="btn btn-dec">-</button>
-<button class="btn btn-clr">C</button>
-</div> */
-}
 
 function Counter() {
   let countNum = 0;
@@ -29,15 +21,22 @@ function Counter() {
   const btnInc = makeElement("button", "class", "btn-inc", "+");
   const btnDec = makeElement("button", "class", "btn-dec", "-");
   const btnClr = makeElement("button", "class", "btn-clr", "C");
+  const btnDel = makeElement("button", "class", "btn-del", "X");
+
+  const delCounter = (e) => {
+    e.target.closest('.counter').remove()
+  }
 
   btnClr.addEventListener("click", () => updateCounter(0));
   btnInc.addEventListener("click", () => updateCounter((countNum += 1)));
   btnDec.addEventListener("click", () => updateCounter((countNum -= 1)));
+  btnDel.addEventListener("click", (e) => delCounter(e));
 
   counter.append(btnInc);
   counter.append(number);
   counter.append(btnDec);
   counter.append(btnClr);
+  counter.append(btnDel);
 
   return counter;
 }
