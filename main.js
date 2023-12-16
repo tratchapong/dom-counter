@@ -5,15 +5,17 @@ function makeElement(tag, attr_n, attr_v, content) {
   return output;
 }
 
-function Counter() {
+function Counter(setCounter) {
   let countNum = 0;
 
   const updateCounter = (n) => {
-    if (n < 0) {
+    if (countNum + n < 0 ) {
       countNum = 0;
       return;
     }
-    number.textContent = n;
+    countNum += n
+    setCounter(n)
+    number.textContent = countNum;
   }
 
   const counter = makeElement("div", "class", "counter", "");
@@ -24,12 +26,13 @@ function Counter() {
   const btnDel = makeElement("button", "class", "btn-del", "X");
 
   const delCounter = (e) => {
+    updateCounter(-countNum)
     e.target.closest('.counter').remove()
   }
 
-  btnClr.addEventListener("click", () => updateCounter(0));
-  btnInc.addEventListener("click", () => updateCounter((countNum += 1)));
-  btnDec.addEventListener("click", () => updateCounter((countNum -= 1)));
+  btnClr.addEventListener("click", () => updateCounter(-countNum));
+  btnInc.addEventListener("click", () => updateCounter(1));
+  btnDec.addEventListener("click", () => updateCounter(-1));
   btnDel.addEventListener("click", (e) => delCounter(e));
 
   counter.append(btnInc);
@@ -43,9 +46,17 @@ function Counter() {
 
 const root = document.querySelector("#root");
 const btnAdd = document.querySelector(".btn-add")
+const sumInfo = document.querySelector(".sum")
+
+let sumCounter=0
+
+const setCounter = n => {
+  sumCounter += n
+  sumInfo.textContent = `Sum = ${sumCounter}`
+}
 
 const addCounter = () => {
-  root.append(Counter())
+  root.append(Counter(setCounter))
 }
 
 btnAdd.addEventListener('click', addCounter)
