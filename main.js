@@ -16,7 +16,7 @@ function makeElement(tag, attr_n, attr_v, content) {
 function Counter() {
   let countNum = 0;
 
-  let updateCounter = (n) => {
+  const updateCounter = (n) => {
     if (n < 0) {
       countNum = 0;
       return;
@@ -43,6 +43,12 @@ function Counter() {
 }
 
 const root = document.querySelector("#root");
-root.append(Counter());
-root.append(Counter());
-root.append(Counter());
+const btnAdd = document.querySelector(".btn-add")
+
+const addCounter = () => {
+  root.append(Counter())
+}
+
+btnAdd.addEventListener('click', addCounter)
+
+

@@ -14,6 +14,7 @@ body {
 }
 
 .counter {
+  margin-block: 1rem ;
   width: 400px;
   height: 50px;
   display: flex;
